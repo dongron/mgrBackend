@@ -17,6 +17,7 @@ email jako głowny id
 
 Użytkownik
 email
+nazwa uzytkownika
 imię 
 (nazwisko)
 miasto
