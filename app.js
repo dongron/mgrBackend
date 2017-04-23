@@ -8,13 +8,22 @@ var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var places = require('./routes/api/places');
+var users = require('./routes/users');
+var placesAPI = require('./routes/api/places');
+var usersAPI = require('./routes/api/users');
 
 var keys = require('./data/temporary-keys');
 
 var app = express();
 
-mongoose.connect(keys.mongoUrl);
+// app.listen(3000);
+mongoose.connect("mongodb://user:user123@ds131900.mlab.com:31900/reservation");
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("Mongoose connection: ok");
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/api/places', places);
+app.use('/api/places', placesAPI);
+app.use('/api/users', usersAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

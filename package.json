@@ -13,6 +13,7 @@
     "express-sessions": "^1.0.6",
     "google-places": "0.0.2",
     "mongoose": "^4.9.5",
+    "monky": "^0.6.10",
     "morgan": "~1.7.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
