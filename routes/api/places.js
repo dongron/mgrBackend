@@ -1,28 +1,87 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var Place = require("../../models/PlaceModel");
 
-// express.use(bodyParser.json()); // support json encoded bodies
-// express.use(bodyParser.urlencoded({ extended: true })); 
 var places = require('../../data/places.js');
 
 
+
 router.get('/', function(req, res, next) {
-	console.log(places);
-  	res.send(places);
+  	res.send({places: "ping places status: ok"});
 });
 
-router.post('/', function(req, res, next) {
-	places.push(req.body);
-	console.log(places);
-	res.send('ok');
+router.get('/all', function(req, res, next) {
+	Place.find({}).then(
+        list => {
+            if(list.length == 0) {
+                res.send('no places'); 
+            } else {
+                var placeMap = {};
+                list.forEach(function(place) {
+                    placeMap[place._id] = place;
+                });
+                res.send(placeMap);  
+            }
+        },
+        err => console.error(err)
+    )
 });
 
-router.delete('/', function(req, res, next) {
-	let objToDel = req.body;
+router.post('/add', function(req, res) {
+	if(!req.body.name || !req.body.geo) {
+		res.send("ERROR, name and geo are minimal data!");
+		return;
+	}
+	
+	var placeToSave = {
+		name: req.body.name ||"none",
+		street: req.body.street || "none",
+		streetNr: req.body.streetNr, 
+		localNr: req.body.localNr, 
+		city: req.body.city,
+		geo: req.body.geo || "none",
+		ownerEmail: req.body.ownerEmail
+	};	
+	var newPlace = new Place(placeToSave);
+	newPlace.save();
+	res.send("OK");
+});
 
-	places.splice(tab.indexOf(objToDel),1);
-	res.send('ok');
+router.get('/:name', function(req, res, next) {
+    let name = req.params.name;
+	console.log(name);
+    
+    Place.findOne({'name': name}).then(
+        place => {
+            if(!place) {                
+                res.send("place not found");
+            } else {
+                res.send(place);
+            }
+        },
+        err => {
+            console.error(err);
+        }
+    );
+});
+
+router.get('/query/', function(req, res, next) {
+    let city = req.query.city;
+	console.log(city);
+    
+    Place.findOne({'city': city}).then(
+        place => {
+            if(!place) {                
+                res.send("place not found");
+            } else {
+                res.send(place);
+            }
+        },
+        err => {
+            console.error(err);
+        }
+    );
 });
 
 module.exports = router;

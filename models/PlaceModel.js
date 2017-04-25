@@ -8,6 +8,7 @@ var PlaceSchema = Schema({
     localNr: {type: Number},
     city: {type: String},
     geo: {type: String, required: true},
+    ownerEmail: {type: String}
 });
 
 module.exports = mongoose.model('Place', PlaceSchema, 'places');
