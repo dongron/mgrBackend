@@ -43,7 +43,7 @@ router.post('/add', function(req, res) {
 	res.send("OK");
 });
 
-router.get('/:email', function(req, res, next) {
+router.get('/byEmail/:email', function(req, res, next) {
     let email = req.params.email;
 	console.log(email);
     

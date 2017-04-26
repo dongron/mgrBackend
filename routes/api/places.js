@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var Place = require("../../models/PlaceModel");
 
 var places = require('../../data/places.js');
+const querystring = require('querystring');
 
 
 
@@ -48,7 +49,7 @@ router.post('/add', function(req, res) {
 	res.send("OK");
 });
 
-router.get('/:name', function(req, res, next) {
+router.get('/byName/:name', function(req, res, next) {
     let name = req.params.name;
 	console.log(name);
     
@@ -66,9 +67,8 @@ router.get('/:name', function(req, res, next) {
     );
 });
 
-router.get('/query/', function(req, res, next) {
+router.get('/query', function(req, res, next) {
     let city = req.query.city;
-	console.log(city);
     
     Place.findOne({'city': city}).then(
         place => {
