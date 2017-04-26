@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  h1= "Login or register"
+  
+  form(method='POST' action='/login')
+    div.form-group
+        label(for='email') Email:
+        input#email.form-control(type='email', placeholder='name@email.com' name='email')
+    div.form-group
+        label(for='email') Password:
+        input#pw.form-control(type='password' name='password')
