@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require("../models/UserModel");
+const Place = require("../models/PlaceModel");
 
 
 router.get('/', function(req, res, next) {
@@ -36,22 +37,30 @@ router.post('/login', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function(req, res, next) {
-    var places = [
-        {
-            name: "nameTest",
-            street: "streetTest",
-            streetNr: "testNr99",
-            localNr: "localNrTest00"
+//     var places = [
+//         {
+//             name: "nameTest",
+//             street: "streetTest",
+//             streetNr: "testNr99",
+//             localNr: "localNrTest00"
+//         },
+//         {
+//             name: "2nameTest",
+//             street: "2streetTest",
+//             streetNr: "2testNr99",
+//             localNr: "2localNrTest00"
+//         }
+// ];
+    Place.find({}).then(
+        places => {
+            res.render('./places/placesHome', { userCity: 'Express', places: places });
         },
-        {
-            name: "2nameTest",
-            street: "2streetTest",
-            streetNr: "2testNr99",
-            localNr: "2localNrTest00"
+        err => {
+            console.error(err);
         }
-];
+    );
     
-    res.render('./places/placesHome', { userCity: 'Express', places: places });
+    // res.render('./places/placesHome', { userCity: 'Express', places: places });
 });
 
 module.exports = router;

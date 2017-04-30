@@ -4,8 +4,11 @@ extends ../layout
 block content
   h1 "Places in your city" #{userCity}
   
+  ul
   each place in places
-    p - #{place.name} #{place.street} #{place.street} #{place.localNr}
+    li 
+        b #{place.name} 
+        #{place.street} #{place.street} #{place.localNr}
     
   
   
