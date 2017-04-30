@@ -25,3 +25,12 @@ button {
     height: 30px;
     margin: 0 auto;
 }
+.otherPlaces {
+    text-align: center;
+}
+.row {
+    height: 30px;
+}
+.right {
+    float: right;
+}

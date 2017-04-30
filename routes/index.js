@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require("../models/UserModel");
 const Place = require("../models/PlaceModel");
 
+var userData = {};
 
 router.get('/', function(req, res, next) {
     let validText;
@@ -23,6 +24,7 @@ router.post('/login', function (req, res, next) {
             } else {
                 if(user.email == email && user.password == password) {
                     console.log("VALID AND PASS");
+                    userData = user;
                     res.redirect('/home');                    
                 } else {                    
                     res.send("Not valid email or password! Reload page");
@@ -37,23 +39,16 @@ router.post('/login', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function(req, res, next) {
-//     var places = [
-//         {
-//             name: "nameTest",
-//             street: "streetTest",
-//             streetNr: "testNr99",
-//             localNr: "localNrTest00"
-//         },
-//         {
-//             name: "2nameTest",
-//             street: "2streetTest",
-//             streetNr: "2testNr99",
-//             localNr: "2localNrTest00"
-//         }
-// ];
-    Place.find({}).then(
+    userData.city = userData.city || '';
+    Place.find({"city": userData.city}).then(
         places => {
-            res.render('./places/placesHome', { userCity: 'Express', places: places });
+            let userPlaces = [];
+            for (var i = 0; i < places.length; i++) {
+                if(places[i].ownerEmail == userData.email) {
+                    userPlaces.push(places[i]);
+                }
+            }
+            res.render('./places/placesHome', { userCity: userData.city, places: places, userPlaces: userPlaces });
         },
         err => {
             console.error(err);
@@ -62,5 +57,10 @@ router.get('/home', function(req, res, next) {
     
     // res.render('./places/placesHome', { userCity: 'Express', places: places });
 });
+
+router.post('/details', function (req, res, next) {
+    console.log("DETAILS name ", req.body.name);
+    
+})
 
 module.exports = router;

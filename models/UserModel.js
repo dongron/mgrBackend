@@ -7,7 +7,8 @@ var UserSchema = Schema({
     password: {type: String, required: true},
     name: {type: String},
     surname: {type: String},
-    city: {type: String}
+    city: {type: String},
+    owner: {type: Boolean}
 });
 
 // UserSchema.statics.getUsers = function(callback) {
