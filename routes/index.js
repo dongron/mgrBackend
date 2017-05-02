@@ -78,9 +78,9 @@ router.post('/contactClient', function(req, res, next) {
     }, function(err, info) {
         if(err) {
             console.log(err);
-            res.render(err);
+            res.send(err);
         }
-        res.render('contact_success');
+        res.send('contact_success');
     });
 });
 
