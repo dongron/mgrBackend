@@ -15,6 +15,7 @@
     "mongoose": "^4.9.5",
     "monky": "^0.6.10",
     "morgan": "~1.7.0",
+    "nodemailer": "^4.0.1",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "pug": "~2.0.0-beta10",

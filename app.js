@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var serveStatic = require('serve-static');
 var session = require ('express-session');
 
 var index = require('./routes/index');
@@ -19,7 +18,6 @@ var app = express();
 
 // app.listen(3000);
 mongoose.connect("mongodb://user:user123@ds131900.mlab.com:31900/reservation");
-// mongoose.connect();
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

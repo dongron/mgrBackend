@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
 const User = require("../models/UserModel");
 const Place = require("../models/PlaceModel");
 
@@ -62,5 +63,21 @@ router.post('/details', function (req, res, next) {
     console.log("DETAILS name ", req.body.name);
     
 })
+
+router.post('/contactClient', function(req, res, next) {
+    var transporter = nodemailer.createTransport({
+        host: 'localhost',
+        port: 25
+    });
+    transporter.sendMail({
+        from: 'Places Service <ps@localhost>',
+        to: 'dominikgronkiewicz@gmail.com',
+        subject: 'Testowy ',
+        text: req.body.mailContent || "Content testowy"
+    }, function(err, info) {
+        res.render('contact_success');
+    });
+});
+
 
 module.exports = router;
