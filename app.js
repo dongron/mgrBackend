@@ -5,9 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var serveStatic = require('serve-static');
+var session = require ('express-session');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var users = require('./routes/users');
 var placesAPI = require('./routes/api/places');
 var usersAPI = require('./routes/api/users');
@@ -18,7 +19,7 @@ var app = express();
 
 // app.listen(3000);
 mongoose.connect("mongodb://user:user123@ds131900.mlab.com:31900/reservation");
-
+// mongoose.connect();
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -36,6 +37,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    secret: 'a4f8071f-c873-4447-8ee2',
+    cookie: { maxAge: 2628000000 },
+    store: new (require('express-sessions'))({
+        storage: 'mongodb',
+        instance: mongoose,
+        host: "mongodb://user:user123@ds131900.mlab.com:31900/reservation",
+        // port: 31900, // optional 
+        // db: 'reservation', // optional 
+        // collection: 'sessions', // optional 
+        // expire: 86400 // optional 
+    })
+}));
 
 app.use('/', index);
 app.use('/users', users);
