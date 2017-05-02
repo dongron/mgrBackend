@@ -65,16 +65,21 @@ router.post('/details', function (req, res, next) {
 })
 
 router.post('/contactClient', function(req, res, next) {
+    let host = "places-back-end.herokuapp.com";
     var transporter = nodemailer.createTransport({
-        host: 'localhost',
+        host: host,
         port: 25
     });
     transporter.sendMail({
-        from: 'Places Service <ps@localhost>',
-        to: 'dongron@wp.pl',
-        subject: 'Testowy ',
-        text: req.body.mailContent || "Content testowy"
+        from: 'Places Service <ps@' + host + '>',
+        to: req.body.email || 'dongron@wp.pl',
+        subject: req.body.subject || 'Test subject',
+        text: req.body.emailContent || "Content testowy"
     }, function(err, info) {
+        if(err) {
+            console.log(err);
+            res.render(err);
+        }
         res.render('contact_success');
     });
 });
