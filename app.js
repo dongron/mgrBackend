@@ -72,9 +72,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-var listener = app.listen(3000, function(){
-    console.log('Listening on port ' + listener.address().port)
-});
+// 
+// var listener = app.listen(3000, function(){
+//     console.log('Listening on port ' + listener.address().port)
+// });
 
 module.exports = app;

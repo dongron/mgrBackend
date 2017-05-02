@@ -71,7 +71,7 @@ router.post('/contactClient', function(req, res, next) {
     });
     transporter.sendMail({
         from: 'Places Service <ps@localhost>',
-        to: 'dominikgronkiewicz@gmail.com',
+        to: 'dongron@wp.pl',
         subject: 'Testowy ',
         text: req.body.mailContent || "Content testowy"
     }, function(err, info) {
