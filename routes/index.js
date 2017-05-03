@@ -64,23 +64,27 @@ router.post('/details', function (req, res, next) {
     
 })
 
-router.post('/contactClient', function(req, res, next) {
-    let host = "places-back-end.herokuapp.com";
+router.post('/contactClient/', function(req, res, next) {
+    var email = req.body.email || 'dongron@wp.pl';
+    var subject = req.body.subject || 'Test subject';
+    var emailContent = req.body.emailContent || "Content testowy";
+    let host = 'localhost';//"places-back-end.herokuapp.com";
     var transporter = nodemailer.createTransport({
         host: host,
-        port: 25
+        port: 8080
     });
     transporter.sendMail({
-        from: 'Places Service <ps@' + host + '>',
-        to: req.body.email || 'dongron@wp.pl',
-        subject: req.body.subject || 'Test subject',
-        text: req.body.emailContent || "Content testowy"
+        from: 'PlacesService <ps@' + host + '>',
+        to: email,
+        subject: subject,
+        text: emailContent
     }, function(err, info) {
         if(err) {
             console.log(err);
-            res.send(err);
+            // res.send(err);
         }
         res.send('contact_success');
+        console.log(email + ' '+subject+' '+emailContent+'!!! \n');
     });
 });
 
