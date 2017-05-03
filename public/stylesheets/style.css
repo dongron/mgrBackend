@@ -34,3 +34,6 @@ button {
 .right {
     float: right;
 }
+.content {
+    text-align: center;
+}

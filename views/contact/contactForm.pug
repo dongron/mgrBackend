@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+    h1 Contact Form
+    div.content
+      form(action='/contact', name='contactus', id='contactus', method='post')
+        p
+            label(for='name') Name (optional):
+            br
+            input(name='name', type='text', value='', id='name')
+        p
+            label(for='email') Email (optional):
+            br
+            input(name='email', type='text', value='', id='email')
+        p
+            label(for='subject') Subject:
+            br
+            input(name='subject', type='text', value='', id='subject')
+        p
+            label(for='message') Message:
+            br
+            textarea(name='message', cols='40', rows='10', id='message')
+        p
+            button(name='submit', type='submit', value='Send', id='submit') Send
