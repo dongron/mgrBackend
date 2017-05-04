@@ -52,7 +52,9 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
+ 
+console.log('App listening on port '+port);
+ 
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -61,7 +63,7 @@ function onError(error) {
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
-
+    
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
