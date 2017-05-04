@@ -11,6 +11,10 @@ var UserSchema = Schema({
     owner: {type: Boolean}
 });
 
+UserSchema.methods.validPassword = function (pass, callback) {
+    return sha1(pass)==this.password;
+}
+
 // UserSchema.statics.getUsers = function(callback) {
 //     console.log('fun get users: ok');
 //     this.find({}, function(err, users){
