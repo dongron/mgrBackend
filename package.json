@@ -21,6 +21,7 @@
     "debug": "~2.6.0",
     "express": "~4.14.1",
     "express-session": "^1.15.2",
+    "express-sessions": "^1.0.6",
     "google-places": "0.0.2",
     "mongoose": "^4.9.5",
     "monky": "^0.6.10",
