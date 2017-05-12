@@ -12,7 +12,8 @@ block content
                 input(type="hidden", name="name", value=userPlace.name)
                 input(type="hidden", name="street", value=userPlace.street)
                 input(type="hidden", name="streetNr", value=userPlace.streetNr)  
-                input(type="hidden", name="city", value=userPlace.city)             
+                input(type="hidden", name="city", value=userPlace.city)
+                input(type="hidden", name="ownerEmail", value=userPlace.ownerEmail)             
                 button.btn.btn-primary(type='submit').right Details
     
     h2.otherPlaces Other places in your city: #{userCity}

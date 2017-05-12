@@ -3,6 +3,7 @@ var router = express.Router();
 var nodemailer = require('nodemailer');
 const User = require("../models/UserModel");
 const Place = require("../models/PlaceModel");
+const Reservation = require('../models/ReservationModel');
 
 var userData = {};
 
@@ -60,12 +61,29 @@ router.get('/home', function(req, res, next) {
 });
 
 router.post('/details', function (req, res, next) {
-    console.log("DETAILS name ", req.body.name);
-    res.redirect('/details');
-    
+    res.redirect('/details/?owner='+req.body.ownerEmail+'&place='+req.body.name);    
 })
 
 router.get('/details', function (req, res, next) {
+    let owner = req.query.owner;
+    let place = req.query.place;
+    console.log('DATAILS GET: '+owner+' '+place);
+    
+    Reservation.find({"city": userData.city}).then(
+        places => {
+            let userPlaces = [];
+            for (var i = 0; i < places.length; i++) {
+                if(places[i].ownerEmail == userData.email) {
+                    userPlaces.push(places[i]);
+                }
+            }
+            res.render('./places/placesHome', { userCity: userData.city, places: places, userPlaces: userPlaces });
+        },
+        err => {
+            console.error(err);
+        }
+    );
+    
     
 })
 
@@ -92,10 +110,10 @@ router.get('/details', function (req, res, next) {
 // });
 
 router.get('/contact', function(req, res, next) {
-    res.render('./contact/contactForm', { title: 'Contact', page: 'contact' })
+    res.render('./contact/contactForm', { title: 'Contact', page: 'contact', email: res.body.email })
 });
 
-router.get('/details', function(req, res, next) {
+router.get('/contactform', function(req, res, next) {
     res.redirect('/contact');
 });
 

@@ -36,6 +36,7 @@ router.post('/add', function(req, res) {
 	var reservationToSave = {
         clientEmail: req.body.clientEmail ||"none",
         ownerEmail: req.body.ownerEmail ||"none",
+        placeName: req.body.placeName ||"none",
         time: new Date(req.body.time) || new Date(),
         long: req.body.long || 1
 	};	

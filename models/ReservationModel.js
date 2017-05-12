@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var ReservationSchema  = Schema({
     clientEmail: {type: String, required: true},
     ownerEmail: {type: String, required: true},
+    placeName: {type: String, required: true},
     time: {type: Date},
     long: {type: Number}    //hours 
 });
