@@ -61,6 +61,11 @@ router.get('/home', function(req, res, next) {
 
 router.post('/details', function (req, res, next) {
     console.log("DETAILS name ", req.body.name);
+    res.redirect('/details');
+    
+})
+
+router.get('/details', function (req, res, next) {
     
 })
 

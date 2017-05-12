@@ -13,6 +13,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var placesAPI = require('./routes/api/places');
 var usersAPI = require('./routes/api/users');
+var reservationAPI = require('./routes/api/reservation');
 
 var keys = require('./data/temporary-keys');
 
@@ -56,6 +57,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/api/places', placesAPI);
 app.use('/api/users', usersAPI);
+app.use('/api/reservations', reservationAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

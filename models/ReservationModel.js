@@ -8,4 +8,4 @@ var ReservationSchema  = Schema({
     long: {type: Number}    //hours 
 });
 
-module.exports = mongoose.model('Reservation', ReservationSchema, reservations);
+module.exports = mongoose.model('Reservation', ReservationSchema, 'reservations');
