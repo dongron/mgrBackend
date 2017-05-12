@@ -110,7 +110,7 @@ router.get('/details', function (req, res, next) {
 router.get('/contact', function(req, res, next) {
     let email = req.query.email;
     console.log('9999999999999 '+email);
-    res.render('./contact/contactForm', { title: 'Contact', page: 'contact', email: email|| ''});
+    res.render('./contact/contactForm', { title: 'Contact', page: 'contact', msg: '', email: email|| ''});
 });
 
 router.post('/contactopen', function(req, res, next) {
@@ -134,10 +134,13 @@ router.post('/contact', function (req, res) {
   });
   
   let name = req.body.name || 'Places website notification';
-  let email = req.body.email || 'places-system.com';
+  let email = req.body.email || 'notification@places-system.com';
+  let clientEmail = req.body.clientEmail;
+  console.log('----------',clientEmail);
+  
   emailOptions = {
       from: name + ' <' + email + '>',
-      to: 'dominikgronkiewicz@gmail.com',
+      to: clientEmail,
       subject: req.body.subject || 'Website contact form',
       text: req.body.message + " \n\n Mail send by: " + name
   };
@@ -148,7 +151,8 @@ router.post('/contact', function (req, res) {
       }
       else {
           console.log('email send');
-          res.render('./contact/contactForm', { title: 'Contact', msg: 'Message sent! Thank you.', err: false, page: 'contact' })
+          res.redirect('/home');
+        //   res.render('./contact/contactForm', { title: 'Contact', msg: 'Message sent! Thank you.', err: false, page: 'contact' })
       }
   });
 });

@@ -2,16 +2,13 @@ extends ../layout
 
 block content
     h1 Contact Form
+        p #{msg}
     div.content
       form(action='/contact', name='contactus', id='contactus', method='post')
         p
-            label(for='name') Name (optional):
+            label(for='clientEmail') Email:
             br
-            input(name='name', type='text', value='', id='name')
-        p
-            label(for='email') Email (optional):
-            br
-            input(name='email', type='text', value=email, id='email')
+            input(name='clientEmail', type='text', value=email, id='clientEmail')
         p
             label(for='subject') Subject:
             br
@@ -20,5 +17,13 @@ block content
             label(for='message') Message:
             br
             textarea(name='message', cols='40', rows='10', id='message')
+        p
+            label(for='name') Your name (optional):
+            br
+            input(name='name', type='text', value='', id='name')
+        p
+            label(for='email') Your email (optional):
+            br
+            input(name='email', type='text', value='', id='email')
         p
             button(name='submit', type='submit', value='Send', id='submit') Send
