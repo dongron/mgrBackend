@@ -28,19 +28,19 @@ router.get('/all', function(req, res, next) {
 });
 
 router.post('/add', function(req, res) {
-	if(!req.body.name || !req.body.geo) {
-		res.send("ERROR, name and geo are minimal data!");
+	if(!req.body.clientEmail || !req.body.ownerEmail || !req.body.time) {
+		res.send("ERROR, clientEmail, ownerEmail and reservation date needed!");
 		return;
 	}
 	
-	var placeToSave = {
+	var reservationToSave = {
         clientEmail: req.body.clientEmail ||"none",
         ownerEmail: req.body.ownerEmail ||"none",
-        time: req.body.time || new Date(),
+        time: new Date(req.body.time) || new Date(),
         long: req.body.long || 1
 	};	
-	var newPlace = new Place(placeToSave);
-	newPlace.save();
+	var newReservation = new Reservation(reservationToSave);
+	newReservation.save();
 	res.send("OK");
 });
 
