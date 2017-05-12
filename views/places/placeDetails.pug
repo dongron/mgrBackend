@@ -1,7 +1,15 @@
 extends ../layout
 
 block content
-    h1 #{name}
-    p #{address}
-    p Reservations:
+    h1 #{place}
+    ul
+    p #{info}
+    each reservation in reservations
+        form(method='GET' action='/contact').row
+            li
+                b #{reservation.clientEmail} 
+                span have reservation at: #{reservation.time} for #{reservation.long} hours
+                input(type="hidden", name="email", id='email', value=reservation.clientEmail)             
+                button.btn.btn-primary(type='submit').right Contact
+    
         

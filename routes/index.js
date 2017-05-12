@@ -67,17 +67,15 @@ router.post('/details', function (req, res, next) {
 router.get('/details', function (req, res, next) {
     let owner = req.query.owner;
     let place = req.query.place;
-    console.log('DATAILS GET: '+owner+' '+place);
+    console.log('--- DATAILS GET: '+owner+' '+place);
     
-    Reservation.find({"city": userData.city}).then(
-        places => {
-            let userPlaces = [];
-            for (var i = 0; i < places.length; i++) {
-                if(places[i].ownerEmail == userData.email) {
-                    userPlaces.push(places[i]);
-                }
+    Reservation.find({"ownerEmail": owner, "placeName": place}).then(
+        reservations => {
+            if(reservations.length !== 0) {
+                res.render('./places/placeDetails', {place: place, reservations: reservations, info: ''});
+            } else {
+                res.render('./places/placeDetails', {place: place, reservations: [{clientEmail: '-', time: '0', long: '0'}], info: "No reservations"});
             }
-            res.render('./places/placesHome', { userCity: userData.city, places: places, userPlaces: userPlaces });
         },
         err => {
             console.error(err);
@@ -110,11 +108,13 @@ router.get('/details', function (req, res, next) {
 // });
 
 router.get('/contact', function(req, res, next) {
-    res.render('./contact/contactForm', { title: 'Contact', page: 'contact', email: res.body.email })
+    let email = req.query.email;
+    console.log('9999999999999 '+email);
+    res.render('./contact/contactForm', { title: 'Contact', page: 'contact', email: email|| ''});
 });
 
-router.get('/contactform', function(req, res, next) {
-    res.redirect('/contact');
+router.post('/contactopen', function(req, res, next) {
+    res.redirect('/contact/?email=' + req.body.email);
 });
 
 router.post('/contact', function (req, res) {
