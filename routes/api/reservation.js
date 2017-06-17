@@ -45,4 +45,16 @@ router.post('/add', function(req, res) {
 	res.send("OK");
 });
 
+router.delete('/remove', function (req, res) {
+    if(req.body.id || (req.body.name && req.body.ownerEmail)) {
+        res.send("ERROR, needed places id or place name & owner email");
+        return;
+    }
+    Reservation.remove({'id': req.body.id}).then(
+        (response) => res.send(response),
+        (err) => console.error(err)
+    );
+
+});
+
 module.exports = router;
