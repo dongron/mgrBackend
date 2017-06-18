@@ -39,7 +39,8 @@ router.post('/add', function(req, res) {
         placeName: req.body.placeName ||"none",
         time: new Date(req.body.time) || new Date(),
         long: req.body.long || 1
-	};	
+	};
+	console.log('adding reservation(unconverted obj)', reservationToSave);
 	var newReservation = new Reservation(reservationToSave);
 	newReservation.save();
 	res.send("OK");
