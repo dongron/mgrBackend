@@ -28,7 +28,8 @@ router.get('/all', function(req, res, next) {
 });
 
 router.post('/add', function(req, res) {
-	if(!req.body.clientEmail || !req.body.ownerEmail || !req.body.time) {
+	if(!req.body.clientEmail || !req.body.time || !req.body.placeName) {
+	    console.log('reservation not added', req.body);
 		res.send("ERROR, clientEmail, ownerEmail and reservation date needed!");
 		return;
 	}
