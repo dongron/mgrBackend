@@ -49,7 +49,7 @@ router.post('/add', function(req, res) {
 });
 
 router.delete('/remove', function (req, res) {
-    if(req.body.id || (req.body.name && req.body.ownerEmail)) {
+    if(!req.body.id) {
         res.send("ERROR, needed places id or place name & owner email");
         return;
     }
