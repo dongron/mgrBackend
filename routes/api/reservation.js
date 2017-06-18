@@ -49,12 +49,13 @@ router.post('/add', function(req, res) {
 });
 
 router.delete('/remove', function (req, res) {
-    console.log('--reservation delete', req.body, req.body.id);
-    if(!req.body.id) {
+    console.log('--reservation delete b/h', req.body, req.header);
+    if(!req.body.id || !req.header.id) {
         res.send("ERROR, needed places id or place name & owner email");
         return;
     }
-    Reservation.remove({'_id': req.body.id}).then(
+    let id = req.body.id || req.header.id;
+    Reservation.remove({'_id': id}).then(
         (response) => res.send(response),
         (err) => console.error(err)
     );
