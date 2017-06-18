@@ -54,7 +54,8 @@ router.delete('/remove', function (req, res) {
         res.send("ERROR, needed places id or place name & owner email");
         return;
     }
-    let id = req.body.id || req.headers.id;
+    let id = (req.body && req.body.id) || req.headers.id;
+    console.log('--removing id', id);
     Reservation.remove({'_id': id}).then(
         (response) => res.send(response),
         (err) => console.error(err)
