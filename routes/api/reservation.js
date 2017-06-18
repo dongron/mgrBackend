@@ -28,6 +28,7 @@ router.get('/all', function(req, res, next) {
 });
 
 router.post('/add', function(req, res) {
+    console.log('--reservation post request body', req.body);
 	if(!req.body.clientEmail || !req.body.time || !req.body.placeName) {
 	    console.log('reservation not added', req.body);
 		res.send("ERROR, clientEmail, ownerEmail and reservation date needed!");
