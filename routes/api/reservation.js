@@ -50,7 +50,7 @@ router.post('/add', function(req, res) {
 
 router.delete('/remove', function (req, res) {
     console.log('--reservation delete b/h', req.body, req.headers);
-    if(!req.body.id || !req.headers.id) {
+    if((!req.body && !req.body.id) && (!req.headers && !req.headers.id)) {
         res.send("ERROR, needed places id or place name & owner email");
         return;
     }
