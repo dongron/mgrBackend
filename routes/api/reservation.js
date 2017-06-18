@@ -49,6 +49,7 @@ router.post('/add', function(req, res) {
 });
 
 router.delete('/remove', function (req, res) {
+    console.log('--reservation delete', req.body);
     if(!req.body.id) {
         res.send("ERROR, needed places id or place name & owner email");
         return;
