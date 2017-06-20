@@ -75,7 +75,7 @@ router.put('/update', function(req, res) {
     Reservation.remove({'_id': id}).then(
         (response) => {
         var reservationToSave = {
-            _id: req.body._id;
+            _id: req.body._id,
             clientEmail: req.body.clientEmail ||"none",
             ownerEmail: req.body.ownerEmail ||"none",
             placeName: req.body.placeName ||"none",
