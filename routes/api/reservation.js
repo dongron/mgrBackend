@@ -14,13 +14,13 @@ router.get('/all', function(req, res, next) {
 	Reservation.find({}).then(
         list => {
             if(list.length == 0) {
-                res.send('no reservations'); 
+                res.send('no reservations');
             } else {
                 var reservationMap = {};
                 list.forEach(function(reservation) {
                     reservationMap[reservation._id] = reservation;
                 });
-                res.send(reservationMap);  
+                res.send(reservationMap);
             }
         },
         err => console.error(err)
@@ -31,10 +31,10 @@ router.post('/add', function(req, res) {
     console.log('--reservation post request body', req.body);
 	if(!req.body.clientEmail || !req.body.time || !req.body.placeName) {
 	    console.log('reservation not added', req.body);
-		res.send("ERROR, clientEmail, ownerEmail and reservation date needed!");
+		res.send("ERROR, clientEmail, ownerEmail and reservation data needed!");
 		return;
 	}
-	
+
 	var reservationToSave = {
         clientEmail: req.body.clientEmail ||"none",
         ownerEmail: req.body.ownerEmail ||"none",
@@ -60,6 +60,36 @@ router.delete('/remove', function (req, res) {
         (response) => res.send(response),
         (err) => console.error(err)
     );
+});
+
+router.put('/update', function(req, res) {
+    console.log('--reservation post request body', req.body);
+    if(!req.body.clientEmail || !req.body.time || !req.body.placeName) {
+        console.log('reservation not added', req.body);
+        res.send("ERROR, clientEmail, ownerEmail and reservation data needed!");
+        return;
+    }
+
+    let id = (req.body && req.body.id) || req.headers.id;
+    console.log('--removing id', id);
+    Reservation.remove({'_id': id}).then(
+        (response) => {
+        var reservationToSave = {
+            _id: req.body._id;
+            clientEmail: req.body.clientEmail ||"none",
+            ownerEmail: req.body.ownerEmail ||"none",
+            placeName: req.body.placeName ||"none",
+            time: new Date(req.body.time) || new Date(),
+            long: req.body.long || 1
+        };
+        console.log('adding reservation(unconverted obj)', reservationToSave);
+        var newReservation = new Reservation(reservationToSave);
+        newReservation.save();
+        res.send("OK");
+    },
+        (err) => console.error(err)
+    );
+
 
 });
 
