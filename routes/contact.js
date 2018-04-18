@@ -23,7 +23,7 @@ module.exports = function(router){
       let email = req.body.email || 'places-system.com';
       emailOptions = {
           from: name + ' <' + email + '>',
-          to: 'dominikgronkiewicz@gmail.com',
+          to: 'other@gmail.com',
           subject: req.body.subject || 'Website contact form',
           text: req.body.message + " \n\n Mail send by: " + name
       };
